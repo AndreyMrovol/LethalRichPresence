@@ -9,6 +9,12 @@ namespace LethalRichPresence;
 public class Variables
 {
 
+  private static string NullToString(object Value)
+  {
+    // Value.ToString() allows for Value being DBNull, but will also convert int, double, etc.
+    return Value == null ? "" : Value.ToString();
+  }
+
   /// <summary>
   /// Calculate the value of all scrap in the ship.
   /// 
@@ -85,7 +91,7 @@ public class Variables
 
   public static string CurrentPlanet()
   {
-    return Planets.planets[Lifecycle.currentPlanet];
+    return Planets.planets[NullToString(Lifecycle.currentPlanet)];
   }
 
   public static string CurrentWeather()
