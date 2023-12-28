@@ -90,7 +90,7 @@ public class Variables
 
   public static string TimeRemaining()
   {
-    var isMultiple = TimeOfDay.Instance.daysUntilDeadline != 1 ? "s " : " ";
+    var isMultiple = TimeOfDay.Instance.daysUntilDeadline != 1 ? "s" : "";
     return TimeOfDay.Instance.daysUntilDeadline + " day" + isMultiple;
   }
 
