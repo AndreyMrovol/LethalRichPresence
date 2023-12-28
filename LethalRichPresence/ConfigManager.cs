@@ -15,7 +15,6 @@ public class ConfigManager
 
   public static ConfigEntry<long> AppID { get; private set; }
 
-  public static ConfigEntry<bool> ShowParty { get; private set; }
   public static ConfigEntry<bool> AllowJoin { get; private set; }
 
   public static ConfigEntry<string> LargeImage { get; private set; }
@@ -34,7 +33,6 @@ public class ConfigManager
   {
     AppID = config.Bind("General", "AppID", 1184272051075305483, "The Discord App ID for this game.");
 
-    ShowParty = config.Bind("Party", "ShowParty", true, "Group players into parties in the rich presence.");
     AllowJoin = config.Bind("Party", "AllowJoin", true, "Allow players to join your game from Discord.");
 
 
@@ -45,7 +43,7 @@ public class ConfigManager
     SmallText = config.Bind("Presence", "SmallText", "%currentweather%", "The small image tooltip for the rich presence.");
 
     ActivityDetails = config.Bind("Presence", "ActivityDetails", "%quotacountifier% quota: %quota% (%collected% on ship)", "The details of the rich presence.");
-    ActivityState = config.Bind("Presence", "ActivityState", "%timeleft% left, playing with crew", "The state of the rich presence.");
+    ActivityState = config.Bind("Presence", "ActivityState", "%timeleft% left, playing %onlineorlan%", "The state of the rich presence.");
     ActivityPlayers = config.Bind("Presence", "ActivityPlayers", true, "Display number of players");
 
 

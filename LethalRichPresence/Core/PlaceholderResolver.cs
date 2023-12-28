@@ -16,6 +16,7 @@ public static class PlaceholderResolver
       {"quota", Variables.Quota().ToString()},
       {"collected", Variables.LootValue().ToString()},
       {"timeleft", Variables.TimeRemaining().ToString()},
+      {"onlineorlan", Variables.IsOnlineOrLAN().ToString()}
 
     };
     return placeholders;

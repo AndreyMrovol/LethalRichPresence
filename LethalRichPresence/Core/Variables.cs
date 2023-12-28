@@ -33,6 +33,11 @@ public class Variables
     return loot.Sum(scrap => scrap.scrapValue);
   }
 
+  public static string IsOnlineOrLAN()
+  {
+    return GameNetworkManager.Instance.disableSteam ? "on LAN" : "online";
+  }
+
   public static string PartyID()
   {
     return GameNetworkManager.Instance.currentLobby?.Id.ToString();
