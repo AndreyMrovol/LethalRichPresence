@@ -45,7 +45,7 @@ public class Variables
 
   public static int PartySize()
   {
-    return GameNetworkManager.Instance.connectedPlayers;
+    return StartOfRound.Instance.livingPlayers;
   }
 
   public static int PartyMaxSize()
