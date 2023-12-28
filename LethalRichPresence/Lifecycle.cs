@@ -33,6 +33,7 @@ public class Lifecycle : MonoBehaviour
     ActivityUpdate();
   }
 
+
   private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
   {
     var currentScene = scene.name;
@@ -53,11 +54,13 @@ public class Lifecycle : MonoBehaviour
       currentPlanet = currentScene;
   }
 
+
   private void OnSceneUnloaded(Scene scene)
   {
     if (currentPlanet == scene.name)
       currentPlanet = null;
   }
+
 
   private void Update()
   {
@@ -84,9 +87,11 @@ public class Lifecycle : MonoBehaviour
 
   }
 
+
   public void ActivityUpdate()
   {
-    Plugin.logger.LogDebug("ActivityUpdate() called");
+    // Plugin.logger.LogDebug("ActivityUpdate() called");
+    // Plugin.logger.LogDebug($"inGame: {inGame}");
 
     if (inGame)
     {
@@ -107,12 +112,10 @@ public class Lifecycle : MonoBehaviour
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
       }
 
-      if (ConfigManager.ShowParty.Value)
-      {
-        DiscordActivity.Party.Id = Variables.PartyID();
-      }
+      DiscordActivity.Party.Id = Variables.PartyID();
 
-      if (ConfigManager.AllowJoin.Value)
+      // allow for joining the lobby only when orbiting
+      if (ConfigManager.AllowJoin.Value && Variables.IsShipInOrbit())
       {
         Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
         DiscordActivity.Secrets.Join = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
