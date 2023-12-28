@@ -33,6 +33,16 @@ public class Variables
     return loot.Sum(scrap => scrap.scrapValue);
   }
 
+  public static bool AmIHost()
+  {
+    return GameNetworkManager.Instance.isHostingGame;
+  }
+
+  public static bool IsShipInOrbit()
+  {
+    return CurrentPlanet() == "In orbit";
+  }
+
   public static string IsOnlineOrLAN()
   {
     return GameNetworkManager.Instance.disableSteam ? "on LAN" : "online";
