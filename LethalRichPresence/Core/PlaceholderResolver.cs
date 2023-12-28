@@ -24,8 +24,8 @@ public static class PlaceholderResolver
 
   public static string ResolvePlaceholders(string input)
   {
-
     string output = input;
+    Dictionary<string, string> placeholders = PlaceholderDictionary();
 
     // detect %string% placeholders and create switch to replace them
     Regex regex = new Regex(@"\%.+?\%");
@@ -43,15 +43,15 @@ public static class PlaceholderResolver
         placeholder = placeholder.Replace("&", "");
       }
 
-      if (PlaceholderDictionary().ContainsKey(placeholder))
+      if (placeholders.ContainsKey(placeholder))
       {
-        output = output.Replace(match.Value, PlaceholderDictionary()[placeholder]);
+        output = output.Replace(match.Value, placeholders[placeholder]);
 
         if (toLower) output = output.ToLower().Replace(" ", "");
       }
     }
 
-    Plugin.logger.LogDebug($"Resolved {input} to {output}");
+    Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
     return output;
   }
 
