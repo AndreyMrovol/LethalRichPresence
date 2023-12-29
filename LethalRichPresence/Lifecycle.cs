@@ -130,7 +130,7 @@ public class Lifecycle : MonoBehaviour
       DiscordActivity.Assets.SmallText = null;
       DiscordActivity.Assets.SmallImage = null;
       DiscordActivity.Assets.LargeText = null;
-      DiscordActivity.Assets.LargeImage = null;
+      DiscordActivity.Assets.LargeImage = "mainmenu";
       DiscordActivity.Party.Id = null;
       DiscordActivity.Party.Size.CurrentSize = 0;
       DiscordActivity.Party.Size.MaxSize = 0;
