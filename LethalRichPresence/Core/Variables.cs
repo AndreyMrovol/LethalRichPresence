@@ -40,7 +40,7 @@ public class Variables
 
   public static bool IsShipInOrbit()
   {
-    return CurrentPlanet() == "In orbit";
+    return CurrentPlanet() == "In orbit" && GameNetworkManager.Instance.currentLobby?.GetData("inviteOnly") != "true";
   }
 
   public static string IsOnlineOrLAN()
