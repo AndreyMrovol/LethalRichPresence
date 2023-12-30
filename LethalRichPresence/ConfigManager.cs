@@ -1,6 +1,5 @@
 using System;
 using BepInEx.Configuration;
-using Discord;
 
 namespace LethalRichPresence;
 
