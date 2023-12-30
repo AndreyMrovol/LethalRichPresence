@@ -114,7 +114,7 @@ public class Lifecycle : MonoBehaviour
       DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value, placeholderDictionary);
       DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value, placeholderDictionary);
 
-      if (ConfigManager.ActivityPlayers.Value)
+      if (ConfigManager.ActivityPlayers.Value && Variables.IsShipInOrbit())
       {
         DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
