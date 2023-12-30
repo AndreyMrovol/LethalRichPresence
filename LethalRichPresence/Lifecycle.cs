@@ -127,6 +127,12 @@ public class Lifecycle : MonoBehaviour
       {
         // Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
         DiscordActivity.Secrets.Join = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
+
+        if (ConfigManager.JoinOnlyInPublicLobby.Value && !Variables.IsPartyPublic())
+        {
+          DiscordActivity.Secrets.Join = null;
+        }
+
       }
 
     }
