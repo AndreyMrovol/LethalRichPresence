@@ -45,7 +45,7 @@ public class Variables
 
   public static bool IsPartyPublic()
   {
-    return GameNetworkManager.Instance.lobbyHostSettings.isLobbyPublic;
+    return GameNetworkManager.Instance.lobbyHostSettings?.isLobbyPublic;
   }
 
   public static string IsHostingOrMember()
