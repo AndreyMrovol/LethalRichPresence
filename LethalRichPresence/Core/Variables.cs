@@ -35,7 +35,7 @@ public class Variables
 
   public static bool IsShipInOrbit()
   {
-    return CurrentPlanet() == "In orbit" && GameNetworkManager.Instance.currentLobby?.GetData("inviteOnly") != "true";
+    return CurrentPlanet() == "In orbit";
   }
 
   public static string IsOnlineOrLAN()
@@ -46,6 +46,11 @@ public class Variables
   public static bool IsPartyPublic()
   {
     return GameNetworkManager.Instance.lobbyHostSettings.isLobbyPublic;
+  }
+
+  public static bool IsPartyInviteOnly()
+  {
+    return GameNetworkManager.Instance.currentLobby?.GetData("inviteOnly") == "true";
   }
 
   public static string IsHostingOrMember()
