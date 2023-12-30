@@ -22,10 +22,9 @@ public static class PlaceholderResolver
     return placeholders;
   }
 
-  public static string ResolvePlaceholders(string input)
+  public static string ResolvePlaceholders(string input, Dictionary<string, string> placeholders)
   {
     string output = input;
-    Dictionary<string, string> placeholders = PlaceholderDictionary();
 
     // detect %string% placeholders and create switch to replace them
     Regex regex = new Regex(@"\%.+?\%");
@@ -51,7 +50,8 @@ public static class PlaceholderResolver
       }
     }
 
-    Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
+    if (ConfigManager.Debug.Value) Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
+
     return output;
   }
 

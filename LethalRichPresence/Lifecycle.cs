@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Discord;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -102,14 +103,16 @@ public class Lifecycle : MonoBehaviour
         Plugin.logger.LogDebug($"Party Size: {Variables.PartySize()}");
         Plugin.logger.LogDebug($"Party Max Size: {Variables.PartyMaxSize()}");
       }
-      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value);
-      DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value);
+      Dictionary<string, string> placeholderDictionary = PlaceholderResolver.PlaceholderDictionary();
 
-      DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeText.Value);
-      DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeImage.Value);
+      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value, placeholderDictionary);
+      DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value, placeholderDictionary);
 
-      DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value);
-      DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value);
+      DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeText.Value, placeholderDictionary);
+      DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeImage.Value, placeholderDictionary);
+
+      DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value, placeholderDictionary);
+      DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value, placeholderDictionary);
 
       if (ConfigManager.ActivityPlayers.Value)
       {
