@@ -97,6 +97,11 @@ public class Lifecycle : MonoBehaviour
     {
       // in game - not in main menu
 
+      if (ConfigManager.Debug.Value)
+      {
+        Plugin.logger.LogDebug($"Party Size: {Variables.PartySize()}");
+        Plugin.logger.LogDebug($"Party Max Size: {Variables.PartyMaxSize()}");
+      }
       DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value);
       DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value);
 
@@ -117,7 +122,7 @@ public class Lifecycle : MonoBehaviour
       // allow for joining the lobby only when orbiting
       if (ConfigManager.AllowJoin.Value && Variables.IsShipInOrbit())
       {
-        Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
+        // Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
         DiscordActivity.Secrets.Join = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
       }
 
@@ -141,7 +146,7 @@ public class Lifecycle : MonoBehaviour
     try
     {
       DiscordActivityManager.UpdateActivity(DiscordActivity, result => { });
-      Plugin.logger.LogDebug("DiscordActivityUpdate");
+      if (ConfigManager.Debug.Value) Plugin.logger.LogDebug("DiscordActivityUpdate");
     }
     catch (Exception e)
     {

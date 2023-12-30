@@ -28,7 +28,7 @@ public class Variables
     // scrap value but don't actually add to your quota.
     var loot = ship.GetComponentsInChildren<GrabbableObject>().ToList()
     .Where(obj => obj.name != "ClipboardManual" && obj.name != "StickyNoteItem" && obj.name != "Key(Clone)" && obj.name != "Key").Where(obj => obj.scrapValue > 0).ToList();
-    Plugin.logger.LogDebug("Calculating total ship scrap value.");
+    if (ConfigManager.Debug.Value) Plugin.logger.LogDebug("Calculating total ship scrap value.");
     // loot.Do(scrap => Plugin.log.LogDebug($"{scrap.name} - ${scrap.scrapValue}"));
     return loot.Sum(scrap => scrap.scrapValue);
   }
