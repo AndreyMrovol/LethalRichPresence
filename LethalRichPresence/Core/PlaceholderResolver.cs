@@ -12,11 +12,14 @@ public static class PlaceholderResolver
     Dictionary<string, string> placeholders = new(){
       {"currentplanet", Variables.CurrentPlanet()},
       {"currentweather", Variables.CurrentWeather()},
-      {"quotacountifier", Variables.QuotaNoCountifier()},
       {"quota", Variables.Quota().ToString()},
+      {"quotafullfilled", Variables.QuotaFulfilled().ToString()},
+      {"quotacountifier", Variables.QuotaNoCountifier()},
       {"collected", Variables.LootValue().ToString()},
       {"timeleft", Variables.TimeRemaining().ToString()},
-      {"onlineorlan", Variables.IsOnlineOrLAN().ToString()}
+      {"onlineorlan", Variables.IsOnlineOrLAN().ToString()},
+      {"hosting", Variables.IsHostingOrMember().ToString()},
+      {"partyprivacy", Variables.PartyPrivacy().ToString()},
 
     };
     return placeholders;
@@ -36,12 +39,14 @@ public static class PlaceholderResolver
       bool toLower = false;
       string placeholder = match.Value.Replace("%", "");
 
+      // if there's & in front of the placeholder, make it lowercase and remove spaces
       if (placeholder.StartsWith("&"))
       {
         toLower = true;
         placeholder = placeholder.Replace("&", "");
       }
 
+      // actual resolving placeholders
       if (placeholders.ContainsKey(placeholder))
       {
         output = output.Replace(match.Value, placeholders[placeholder]);

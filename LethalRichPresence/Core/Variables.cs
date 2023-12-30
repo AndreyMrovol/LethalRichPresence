@@ -43,6 +43,16 @@ public class Variables
     return GameNetworkManager.Instance.disableSteam ? "on LAN" : "online";
   }
 
+  public static bool IsPartyPublic()
+  {
+    return GameNetworkManager.Instance.lobbyHostSettings.isLobbyPublic;
+  }
+
+  public static string IsHostingOrMember()
+  {
+    return AmIHost() ? "hosting" : "member";
+  }
+
   public static string PartyID()
   {
     return GameNetworkManager.Instance.currentLobby?.Id.ToString();
@@ -66,6 +76,11 @@ public class Variables
   public static string PartyLeaderID()
   {
     return GameNetworkManager.Instance.currentLobby?.Owner.Id.ToString();
+  }
+
+  public static string PartyPrivacy()
+  {
+    return IsPartyPublic() ? "public" : "private";
   }
 
   public static int Quota()
