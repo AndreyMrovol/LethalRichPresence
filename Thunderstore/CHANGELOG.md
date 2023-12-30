@@ -11,3 +11,14 @@
 - fixed party size/max size being set to null and disabling the mod
 - small optimization in resolving placeholders
 - fixed the option to join lobbies through Discord
+
+# 0.2.1
+
+- added main menu image
+
+# 0.2.2
+
+- fixed debug messages being logged always
+- optimization: all placeholder values are pulled once per update
+- party size is updated only in orbit
+- added new placeholders: %onlineorlan%, %hosting%, %partyprivacy%
