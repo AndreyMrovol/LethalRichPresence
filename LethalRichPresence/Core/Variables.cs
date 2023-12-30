@@ -1,8 +1,5 @@
-using System.Collections.Generic;
 using System.Linq;
-using HarmonyLib;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace LethalRichPresence;
 
@@ -28,8 +25,6 @@ public class Variables
     // scrap value but don't actually add to your quota.
     var loot = ship.GetComponentsInChildren<GrabbableObject>().ToList()
     .Where(obj => obj.name != "ClipboardManual" && obj.name != "StickyNoteItem" && obj.name != "Key(Clone)" && obj.name != "Key").Where(obj => obj.scrapValue > 0).ToList();
-    Plugin.logger.LogDebug("Calculating total ship scrap value.");
-    // loot.Do(scrap => Plugin.log.LogDebug($"{scrap.name} - ${scrap.scrapValue}"));
     return loot.Sum(scrap => scrap.scrapValue);
   }
 
@@ -48,6 +43,16 @@ public class Variables
     return GameNetworkManager.Instance.disableSteam ? "on LAN" : "online";
   }
 
+  public static bool IsPartyPublic()
+  {
+    return GameNetworkManager.Instance.lobbyHostSettings.isLobbyPublic;
+  }
+
+  public static string IsHostingOrMember()
+  {
+    return AmIHost() ? "hosting" : "member";
+  }
+
   public static string PartyID()
   {
     return GameNetworkManager.Instance.currentLobby?.Id.ToString();
@@ -60,7 +65,8 @@ public class Variables
 
   public static int PartyMaxSize()
   {
-    return GameNetworkManager.Instance.maxAllowedPlayers;
+    // return GameNetworkManager.Instance.maxAllowedPlayers;
+    return GameNetworkManager.Instance.currentLobby?.MaxMembers ?? 0;
   }
 
   public static string PartyLeader()
@@ -71,6 +77,11 @@ public class Variables
   public static string PartyLeaderID()
   {
     return GameNetworkManager.Instance.currentLobby?.Owner.Id.ToString();
+  }
+
+  public static string PartyPrivacy()
+  {
+    return IsPartyPublic() ? "public" : "private";
   }
 
   public static int Quota()

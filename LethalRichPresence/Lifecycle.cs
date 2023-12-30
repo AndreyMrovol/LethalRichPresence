@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Discord;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -97,16 +98,23 @@ public class Lifecycle : MonoBehaviour
     {
       // in game - not in main menu
 
-      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value);
-      DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value);
+      if (ConfigManager.Debug.Value)
+      {
+        Plugin.logger.LogDebug($"Party Size: {Variables.PartySize()}");
+        Plugin.logger.LogDebug($"Party Max Size: {Variables.PartyMaxSize()}");
+      }
+      Dictionary<string, string> placeholderDictionary = PlaceholderResolver.PlaceholderDictionary();
 
-      DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeText.Value);
-      DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeImage.Value);
+      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value, placeholderDictionary);
+      DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value, placeholderDictionary);
 
-      DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value);
-      DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value);
+      DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeText.Value, placeholderDictionary);
+      DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeImage.Value, placeholderDictionary);
 
-      if (ConfigManager.ActivityPlayers.Value)
+      DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value, placeholderDictionary);
+      DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value, placeholderDictionary);
+
+      if (ConfigManager.ActivityPlayers.Value && Variables.IsShipInOrbit())
       {
         DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
@@ -117,8 +125,14 @@ public class Lifecycle : MonoBehaviour
       // allow for joining the lobby only when orbiting
       if (ConfigManager.AllowJoin.Value && Variables.IsShipInOrbit())
       {
-        Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
+        // Plugin.logger.LogDebug($"steam://joinlobby/1966720/{Variables.PartyID()}/{Variables.PartyLeaderID()}");
         DiscordActivity.Secrets.Join = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
+
+        if (ConfigManager.JoinOnlyInPublicLobby.Value && !Variables.IsPartyPublic())
+        {
+          DiscordActivity.Secrets.Join = null;
+        }
+
       }
       else
       {
@@ -144,7 +158,7 @@ public class Lifecycle : MonoBehaviour
     try
     {
       DiscordActivityManager.UpdateActivity(DiscordActivity, result => { });
-      Plugin.logger.LogDebug("DiscordActivityUpdate");
+      if (ConfigManager.Debug.Value) Plugin.logger.LogDebug("DiscordActivityUpdate");
     }
     catch (Exception e)
     {

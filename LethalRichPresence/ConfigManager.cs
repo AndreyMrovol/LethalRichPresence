@@ -1,6 +1,5 @@
 using System;
 using BepInEx.Configuration;
-using Discord;
 
 namespace LethalRichPresence;
 
@@ -16,6 +15,7 @@ public class ConfigManager
   public static ConfigEntry<long> AppID { get; private set; }
 
   public static ConfigEntry<bool> AllowJoin { get; private set; }
+  public static ConfigEntry<bool> JoinOnlyInPublicLobby { get; private set; }
 
   public static ConfigEntry<string> LargeImage { get; private set; }
   public static ConfigEntry<string> LargeText { get; private set; }
@@ -34,6 +34,7 @@ public class ConfigManager
     AppID = config.Bind("General", "AppID", 1184272051075305483, "The Discord App ID for this game.");
 
     AllowJoin = config.Bind("Party", "AllowJoin", true, "Allow players to join your game from Discord.");
+    JoinOnlyInPublicLobby = config.Bind("Party", "JoinOnlyInPublicLobby", false, "Only allow players to join your game from Discord if your lobby is public.");
 
 
     LargeImage = config.Bind("Presence", "LargeImage", "%&currentplanet%", "The large image key for the rich presence.");
