@@ -1,6 +1,6 @@
 # 0.1.1
 
-- fixed a bug where the mod would stop working after starting ship from a planet
+- fixed a bug where the mod would stop working after starting ship from a planet (thanks, [DHStyle541](https://github.com/DHStyle541)!)
 
 # 0.2.0
 
@@ -14,7 +14,7 @@
 
 # 0.2.1
 
-- added main menu image
+- added main menu image (thanks, [SheepCommander](https://github.com/SheepCommander)!)
 
 # 0.2.2
 
@@ -22,3 +22,9 @@
 - optimization: all placeholder values are pulled once per update
 - party size is updated only in orbit
 - added new placeholders: %onlineorlan%, %hosting%, %partyprivacy%
+
+# 0.3.0
+
+### Please re-generate your config file!
+
+- added option to allow for join option to work only in public lobbies (thanks, [1A3Dev](https://github.com/1A3Dev)!)
