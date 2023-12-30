@@ -28,3 +28,7 @@
 ### Please re-generate your config file!
 
 - added option to allow for join option to work only in public lobbies (thanks, [1A3Dev](https://github.com/1A3Dev)!)
+
+# 0.3.1
+
+- changed lobby size detection to support MoreCompany/BiggerLobby (thanks, [FLozyXD](https://github.com/FLozyXD)!)
