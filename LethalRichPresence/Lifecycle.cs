@@ -134,6 +134,10 @@ public class Lifecycle : MonoBehaviour
         }
 
       }
+      else
+      {
+        DiscordActivity.Secrets.Join = null;
+      }
 
     }
     else
