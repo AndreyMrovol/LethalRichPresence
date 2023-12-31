@@ -140,10 +140,6 @@ public class Lifecycle : MonoBehaviour
       {
         joinSecret = null;
       }
-      else
-      {
-        DiscordActivity.Secrets.Join = null;
-      }
 
       DiscordActivity.Secrets.Join = joinSecret;
     }
