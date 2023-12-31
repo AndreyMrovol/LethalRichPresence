@@ -8,6 +8,7 @@ public class Planets
     {
         {"", "In orbit"},
         {"SampleSceneRelay", "In orbit"},
+        {"InitSceneLaunchOptions", "Modded Moon"},
         {"CompanyBuilding", "71-Gordion"},
         {"Level1Experimentation","41-Experimentation"},
         {"Level2Assurance","220-Assurance"},
