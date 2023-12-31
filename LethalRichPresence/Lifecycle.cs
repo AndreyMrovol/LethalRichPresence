@@ -122,16 +122,26 @@ public class Lifecycle : MonoBehaviour
 
       DiscordActivity.Party.Id = Variables.PartyID();
 
+      string joinSecret;
+
       // allow for joining the lobby only when orbiting
-      if (ConfigManager.AllowJoin.Value && Variables.IsShipInOrbit() && !Variables.IsPartyInviteOnly() && (Variables.IsPartyPublic() || !ConfigManager.JoinOnlyInPublicLobby.Value))
+      if (ConfigManager.AllowJoin.Value && Variables.IsShipInOrbit())
       {
-        DiscordActivity.Secrets.Join = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
+        joinSecret = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
+
+        if (Variables.IsPartyInviteOnly() || (Variables.IsPartyPublic() && ConfigManager.JoinOnlyInPublicLobby.Value))
+        {
+          joinSecret = null;
+        }
+
         // Plugin.logger.LogDebug(DiscordActivity.Secrets.Join);
       }
       else
       {
-        DiscordActivity.Secrets.Join = null;
+        joinSecret = null;
       }
+
+      DiscordActivity.Secrets.Join = joinSecret;
     }
     else
     {
