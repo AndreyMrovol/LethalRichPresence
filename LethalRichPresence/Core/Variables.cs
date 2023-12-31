@@ -48,6 +48,11 @@ public class Variables
     return GameNetworkManager.Instance.lobbyHostSettings.isLobbyPublic;
   }
 
+  public static bool IsPartyInviteOnly()
+  {
+    return GameNetworkManager.Instance.currentLobby?.GetData("inviteOnly") == "true";
+  }
+
   public static string IsHostingOrMember()
   {
     return AmIHost() ? "hosting" : "member";
