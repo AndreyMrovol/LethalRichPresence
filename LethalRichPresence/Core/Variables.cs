@@ -70,7 +70,7 @@ public class Variables
 
   public static int PartyMaxSize()
   {
-    return GameNetworkManager.Instance.currentLobby?.MaxMembers ?? GameNetworkManager.Instance.maxAllowedPlayers;
+    return Lifecycle.partyMaxSize;
   }
 
   public static string PartyLeader()

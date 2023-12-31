@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Discord;
+using Steamworks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -15,6 +16,8 @@ public class Lifecycle : MonoBehaviour
   public static string currentPlanet;
 
   public float period = 0.0f;
+
+  public static int partyMaxSize = 0;
 
   private void Start()
   {
@@ -32,6 +35,11 @@ public class Lifecycle : MonoBehaviour
     SceneManager.sceneUnloaded += OnSceneUnloaded;
 
     ActivityUpdate();
+
+    SteamMatchmaking.OnLobbyEntered += (lobby) =>
+    {
+      partyMaxSize = lobby.MaxMembers;
+    };
   }
 
 
