@@ -129,7 +129,7 @@ public class Lifecycle : MonoBehaviour
       {
         joinSecret = $"steam://joinlobby/1966720/${Variables.PartyID()}/${Variables.PartyLeaderID()}";
 
-        if (Variables.IsPartyInviteOnly() || (Variables.IsPartyPublic() && ConfigManager.JoinOnlyInPublicLobby.Value))
+        if (Variables.IsPartyInviteOnly() || (!Variables.IsPartyPublic() && ConfigManager.JoinOnlyInPublicLobby.Value))
         {
           joinSecret = null;
         }
