@@ -29,6 +29,8 @@ public static class PlaceholderResolver
   {
     string output = input;
 
+    if (output == "") return null;
+
     // detect %string% placeholders and create switch to replace them
     Regex regex = new Regex(@"\%.+?\%");
     MatchCollection matches = regex.Matches(output);
