@@ -43,3 +43,22 @@
 - added support for MoreCompany/AdvancedCompany bigger lobbies
 - fixed an issue with `IsPartyPublic` erroring on LAN (thanks for [your PR](https://github.com/AndreyMrovol/LethalRichPresence/pull/7), [1A3Dev](https://github.com/1A3Dev))
 - fixed an issue when the _Join_ button would be always active
+
+# 0.4.1
+
+- update PartyMaxSize only when joining new lobby (thanks, [Clark919](https://github.com/Clark919))
+
+# 0.5.0
+
+### Please re-generate your config file!
+
+- added IsFiringSequenceActive variable
+- fixed handling empty config strings
+- changed target build to net46
+- added config option to display living players count
+- changed debug config names
+- added separate config options for being in orbit, on planet, in main menu and in firing sequence
+- presence updates every second instead of every 2 seconds
+- fixed null in PartyLeaderID
+- all Discord assets are now part of repository under CC-BY 4.0
+- **added support for modded moons**
