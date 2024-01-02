@@ -58,6 +58,11 @@ public class Variables
     return AmIHost() ? "hosting" : "member";
   }
 
+  public static bool IsFiringSequenceActive()
+  {
+    return StartOfRound.Instance.firingPlayersCutsceneRunning;
+  }
+
   public static string PartyID()
   {
     return GameNetworkManager.Instance.currentLobby?.Id.ToString();
