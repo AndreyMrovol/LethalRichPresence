@@ -108,21 +108,43 @@ public class Lifecycle : MonoBehaviour
 
       if (ConfigManager.Debug.Value)
       {
-        Plugin.logger.LogDebug($"Party Size: {Variables.PartySize()}");
-        Plugin.logger.LogDebug($"Party Max Size: {Variables.PartyMaxSize()}");
       }
+
       Dictionary<string, string> placeholderDictionary = PlaceholderResolver.PlaceholderDictionary();
 
-      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value, placeholderDictionary);
+      if (Variables.IsShipInOrbit())
+      {
+        DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitLargeText.Value, placeholderDictionary);
+        DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitLargeImage.Value, placeholderDictionary);
+
+        DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitSmallText.Value, placeholderDictionary);
+        DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitSmallImage.Value, placeholderDictionary);
+      }
+      else
+      {
+        DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetLargeText.Value, placeholderDictionary);
+        DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetLargeImage.Value, placeholderDictionary);
+
+        DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetSmallText.Value, placeholderDictionary);
+        DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetSmallImage.Value, placeholderDictionary);
+      }
+
       DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value, placeholderDictionary);
+      DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value, placeholderDictionary);
 
-      DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeText.Value, placeholderDictionary);
-      DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.LargeImage.Value, placeholderDictionary);
+      if (Variables.IsFiringSequenceActive())
+      {
+        DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.FiredSequenceLargeImage.Value, placeholderDictionary);
+        DiscordActivity.Assets.LargeText = "Getting fired";
 
-      DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallText.Value, placeholderDictionary);
-      DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.SmallImage.Value, placeholderDictionary);
+        DiscordActivity.Details = "Getting fired";
+        DiscordActivity.State = $"Did not meet {Variables.QuotaNoCountifier()} quota ({Variables.Quota()})";
 
-      if (ConfigManager.ActivityPlayers.Value && Variables.IsShipInOrbit())
+        DiscordActivity.Party.Size.CurrentSize = 0;
+        DiscordActivity.Party.Size.MaxSize = 0;
+      }
+
+      if (ConfigManager.ActivityPlayers.Value && Variables.IsShipInOrbit() && !Variables.IsFiringSequenceActive())
       {
         DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
@@ -164,7 +186,7 @@ public class Lifecycle : MonoBehaviour
       DiscordActivity.Assets.SmallText = null;
       DiscordActivity.Assets.SmallImage = null;
       DiscordActivity.Assets.LargeText = null;
-      DiscordActivity.Assets.LargeImage = "mainmenu";
+      DiscordActivity.Assets.LargeImage = ConfigManager.MainMenuLargeImage.Value;
       DiscordActivity.Party.Id = null;
       DiscordActivity.Party.Size.CurrentSize = 0;
       DiscordActivity.Party.Size.MaxSize = 0;
