@@ -75,7 +75,7 @@ public class Lifecycle : MonoBehaviour
   {
     if (DiscordActivityManager == null) { return; }
 
-    if (period > 2.0f)
+    if (period > 1.0f)
     {
       try
       {
