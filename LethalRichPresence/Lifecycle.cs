@@ -128,6 +128,11 @@ public class Lifecycle : MonoBehaviour
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
       }
 
+      if (ConfigManager.DisplayLivingPlayers.Value)
+      {
+        DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
+      }
+
       DiscordActivity.Party.Id = Variables.PartyID();
 
       string joinSecret;

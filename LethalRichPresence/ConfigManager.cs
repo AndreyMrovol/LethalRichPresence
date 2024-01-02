@@ -16,6 +16,7 @@ public class ConfigManager
 
   public static ConfigEntry<bool> AllowJoin { get; private set; }
   public static ConfigEntry<bool> JoinOnlyInPublicLobby { get; private set; }
+  public static ConfigEntry<bool> DisplayLivingPlayers { get; private set; }
 
   public static ConfigEntry<string> LargeImage { get; private set; }
   public static ConfigEntry<string> LargeText { get; private set; }
@@ -42,6 +43,7 @@ public class ConfigManager
 
     SmallImage = config.Bind("Presence", "SmallImage", "%&currentweather%", "The small image key for the rich presence.");
     SmallText = config.Bind("Presence", "SmallText", "%currentweather%", "The small image tooltip for the rich presence.");
+    DisplayLivingPlayers = config.Bind("Presence", "DisplayLivingPlayers", false, "Display amount of currently alive players in the rich presence.");
 
     ActivityDetails = config.Bind("Presence", "ActivityDetails", "%quotacountifier% quota: %quota% (%collected% on ship)", "The details of the rich presence.");
     ActivityState = config.Bind("Presence", "ActivityState", "%timeleft% left, playing %onlineorlan%", "The state of the rich presence.");
