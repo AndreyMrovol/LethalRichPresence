@@ -86,7 +86,7 @@ public class Variables
 
   public static string PartyLeaderID()
   {
-    return GameNetworkManager.Instance.currentLobby?.Owner.Id.ToString();
+    return GameNetworkManager.Instance.currentLobby?.Owner.Id.ToString() ?? "0";
   }
 
   public static string PartyPrivacy()
