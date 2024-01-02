@@ -1,6 +1,7 @@
 # LethalRichPresence
 
 Discord Rich Presence support for Lethal Company.
+**_Now with modded moons support!_**
 
 #### This is a beta version, please report any bugs on project's [Github page](https://github.com/AndreyMrovol/LethalRichPresence)
 
@@ -30,7 +31,15 @@ The default settings show:
 - Lobby size
 - Option to join the lobby
 
+## License
+
+This project is licensed under [MIT License](https://github.com/AndreyMrovol/LethalRichPresence/blob/main/LICENSE).
+
+All assets in [DiscordImages](https://github.com/AndreyMrovol/LethalRichPresence/tree/main/DiscordImages) are licensed under [Creative Commons Attribution 4.0](https://github.com/AndreyMrovol/LethalRichPresence/tree/main/DiscordImages/LICENSE).
+
 ## Credits
+
+Thanks to CDAGaming for [Minecraft's CraftPresence mod](https://gitlab.com/CDAGaming/CraftPresence), which was a major inspiration to create this mod.
 
 This project uses [LethalCompanyTemplate](https://github.com/LethalCompany/LethalCompanyTemplate), licensed under [MIT License](https://github.com/LethalCompany/LethalCompanyTemplate/blob/main/LICENSE).
 
