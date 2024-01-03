@@ -12,6 +12,11 @@ namespace LethalRichPresence
 
     public static void Initialize()
     {
+      CreateDiscord();
+    }
+
+    private static void CreateDiscord()
+    {
       discord = new Discord.Discord(ConfigManager.AppID.Value, (ulong)CreateFlags.NoRequireDiscord);
       activityManager = discord.GetActivityManager();
 
@@ -20,6 +25,12 @@ namespace LethalRichPresence
       activityManager.RegisterSteam(1966720);
 
       activity = new() { Instance = true };
+    }
+
+    public static void RestartDiscord()
+    {
+      // discord.Dispose();
+      CreateDiscord();
     }
 
     // getters for activitymanager and activity

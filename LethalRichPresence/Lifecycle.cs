@@ -16,6 +16,7 @@ public class Lifecycle : MonoBehaviour
   public static string currentPlanet;
 
   public float period = 0.0f;
+  public float desiredPeriod = 1.0f;
 
   public static int partyMaxSize = 0;
 
@@ -75,17 +76,38 @@ public class Lifecycle : MonoBehaviour
   {
     if (DiscordActivityManager == null) { return; }
 
-    if (period > 1.0f)
+    if (period > desiredPeriod)
     {
       try
       {
-        DiscordAbstraction.discord.RunCallbacks();
+
+        try
+        {
+          DiscordAbstraction.discord.RunCallbacks();
+        }
+
+        catch (Exception ein)
+        {
+          Plugin.logger.LogError($"Discord exception in Update: {ein.Message}, retrying in 10 seconds");
+          desiredPeriod = 10.0f;
+
+          DiscordAbstraction.RestartDiscord();
+
+          DiscordActivityManager = DiscordAbstraction.GetActivityManager();
+          DiscordActivity = DiscordAbstraction.GetActivity();
+
+          throw ein;
+        }
+
         ActivityUpdate();
         period = 0;
+
       }
       catch (Exception e)
       {
-        Plugin.logger.LogError($"Discord exception in Update: {e}");
+        Plugin.logger.LogError($"Update() error: {e.Message}");
+        period = 0;
+        desiredPeriod = 10.0f;
       }
     }
     else
@@ -198,6 +220,9 @@ public class Lifecycle : MonoBehaviour
     {
       DiscordActivityManager.UpdateActivity(DiscordActivity, result => { });
       if (ConfigManager.Debug.Value) Plugin.logger.LogDebug("DiscordActivityUpdate");
+
+      if (desiredPeriod != 1.0f) desiredPeriod = 1.0f;
+
     }
     catch (Exception e)
     {
