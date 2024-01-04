@@ -25,6 +25,26 @@ namespace LethalRichPresence
       activityManager.RegisterSteam(1966720);
 
       activity = new() { Instance = true };
+
+      activityManager.OnActivityJoin += secret =>
+      {
+        Plugin.logger.LogMessage($"Joining lobby with {secret}");
+
+        // secret is Steam Lobby ID
+        Steamworks.SteamId lobbyID = ulong.Parse(secret.ToString());
+        Steamworks.Data.Lobby SteamLobby = new Steamworks.Data.Lobby(lobbyID);
+
+        try
+        {
+          GameNetworkManager.Instance.JoinLobby(SteamLobby, lobbyID);
+        }
+        catch (System.Exception e)
+        {
+          Plugin.logger.LogError(e);
+        }
+
+
+      };
     }
 
     public static void RestartDiscord()

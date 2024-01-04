@@ -67,3 +67,7 @@
 
 - fixed issue with Discord not reconnecting after Discord restart/shutdown (thanks, [northerncarrots](https://github.com/northerncarrots))
 - fixed issue with logs being spammed with Discord errors (thanks, [northerncarrots](https://github.com/northerncarrots))
+
+# 0.5.2
+
+- Discord Activity Joining is working as intended (thanks, Qik'in!)
