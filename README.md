@@ -17,19 +17,12 @@ Install via r2modman.
 
 Fully customizable Rich Presence for Lethal Company.
 
-The default settings show:
-![Discord Screenshot](https://i.imgur.com/d46nq9x.png)
-![Discord Screenshot](https://i.imgur.com/ydoY5EF.png?1)
+![In orbit](https://i.imgur.com/mNVl4w5.png)
+![In game](https://i.imgur.com/cDnEmDE.png)
+![Main menu](https://i.imgur.com/sAO9IJx.png)
+![Fired sequence](https://i.imgur.com/QhF38jD.png)
 
-- Current moon / on ship
-- Current weather
-- Which quota you're on
-- Current Quota
-- Collected loot
-- Time until deadline
-- Players in your lobby
-- Lobby size
-- Option to join the lobby
+Read more about configuration and features in **_[Wiki section](https://github.com/AndreyMrovol/LethalRichPresence/wiki)_**.
 
 ## License
 
