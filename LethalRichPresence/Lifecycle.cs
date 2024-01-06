@@ -89,6 +89,8 @@ public class Lifecycle : MonoBehaviour
         catch (Exception ein)
         {
           Plugin.logger.LogError($"Discord exception in Update: {ein.Message}, retrying in 10 seconds");
+          if (ConfigManager.Debug.Value) Plugin.logger.LogError(ein);
+
           desiredPeriod = 10.0f;
 
           DiscordAbstraction.RestartDiscord();
