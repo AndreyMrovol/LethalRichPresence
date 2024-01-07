@@ -113,7 +113,6 @@ public class Variables
   {
     return ((QuotaNo() % 20) + Countifiers.countifiers[QuotaNo() % 20].ToString()).ToString();
   }
-  }
 
   public static int DaysRemaining()
   {
