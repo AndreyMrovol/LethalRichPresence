@@ -1,5 +1,4 @@
-// create abstraction layer between discord (in Discord namespace) and the plugin
-
+using System;
 using Discord;
 
 namespace LethalRichPresence
@@ -22,7 +21,15 @@ namespace LethalRichPresence
 
       if (activityManager == null) { return; }
 
-      activityManager.RegisterSteam(1966720);
+      // hacky workaround for linux users getting errors on initialization
+      try
+      {
+        activityManager.RegisterSteam(1966720);
+      }
+      catch (Exception e)
+      {
+        Plugin.logger.LogError($"Error registering steam: {e}");
+      }
 
       activity = new() { Instance = true };
 
