@@ -14,24 +14,9 @@
         <PackageReference Include="BepInEx.Core" Version="5.*" />
         <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
         <PackageReference Include="LethalAPI.GameLibs" Version="45.1.0" />
-        <!-- <PackageReference Include="Lib.Harmony" Version="2.2.2" /> -->
-        <PackageReference Include="UnityEngine.Modules" Version="2022.3.9" IncludeAssets="compile" />
     </ItemGroup>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
-    </ItemGroup>
-
-    <ItemGroup>
-        <!-- Edit [steampath] to your steamapps folder location -->
-        <Reference Include="UnityEngine">
-            <HintPath>[steampath]\common\Lethal Company\Lethal Company_Data\Managed\UnityEngine.dll</HintPath> 
-        </Reference>
-        <Reference Include="Unity.Netcode.Runtime">
-            <HintPath>[steampath]\common\Lethal Company\Lethal Company_Data\Managed\Unity.Netcode.Runtime.dll</HintPath>
-          </Reference>
-          <Reference Include="Steamworks.Data.Lobby">
-            <HintPath>[steampath]\common\Lethal Company\Lethal Company_Data\Managed\Facepunch.Steamworks.Win64.dll</HintPath>
-          </Reference>
     </ItemGroup>
 </Project>
