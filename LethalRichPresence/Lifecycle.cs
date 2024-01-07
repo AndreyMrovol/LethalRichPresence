@@ -188,6 +188,11 @@ public class Lifecycle : MonoBehaviour
       {
         joinSecret = Variables.PartyID();
 
+        if (Variables.PartyID() == "0")
+        {
+          joinSecret = null;
+        }
+
         if (Variables.IsPartyInviteOnly() || (!Variables.IsPartyPublic() && ConfigManager.JoinOnlyInPublicLobby.Value))
         {
           joinSecret = null;
