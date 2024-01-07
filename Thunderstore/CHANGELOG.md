@@ -71,3 +71,7 @@
 # 0.5.2
 
 - Discord Activity Joining is working as intended (thanks, Qik'in!)
+
+# 0.5.3
+
+- Linux Rich Presence is finally (and hopefully) fixed (thank you: [Readek](https://github.com/Readek) and [Naku](https://nnaku.com/))
