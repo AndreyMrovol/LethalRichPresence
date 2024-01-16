@@ -181,7 +181,7 @@ public class Lifecycle : MonoBehaviour
         DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
       }
 
-      DiscordActivity.Party.Id = Variables.PartyLeaderID();
+      if (Variables.PartyLeaderID() != "0") DiscordActivity.Party.Id = Variables.PartyLeaderID();
 
       string joinSecret;
 
