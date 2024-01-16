@@ -19,6 +19,7 @@ public class Lifecycle : MonoBehaviour
   public float desiredPeriod = 1.0f;
 
   public static int partyMaxSize = 0;
+  public static string partyID = "";
 
   private void Start()
   {
@@ -40,6 +41,7 @@ public class Lifecycle : MonoBehaviour
     SteamMatchmaking.OnLobbyEntered += (lobby) =>
     {
       partyMaxSize = lobby.MaxMembers;
+      partyID = lobby.Id.ToString();
     };
   }
 
@@ -188,7 +190,12 @@ public class Lifecycle : MonoBehaviour
       {
         joinSecret = Variables.PartyID();
 
-        if (Variables.PartyID() == "0")
+        if (Variables.PartyLeaderID() == "0" || Variables.PartyLeaderID() == "")
+        {
+          joinSecret = null;
+        }
+
+        if (Variables.PartyID() == "0" || Variables.PartyID() == "")
         {
           joinSecret = null;
         }

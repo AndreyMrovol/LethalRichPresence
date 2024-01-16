@@ -66,7 +66,7 @@ public class Variables
 
   public static string PartyID()
   {
-    return GameNetworkManager.Instance.currentLobby?.Id.ToString();
+    return GameNetworkManager.Instance.currentLobby?.Id.ToString() ?? Lifecycle.partyID;
   }
 
   public static int PartySize()
