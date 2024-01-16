@@ -174,6 +174,12 @@ public class Lifecycle : MonoBehaviour
       {
         DiscordActivity.Party.Size.CurrentSize = Variables.PartySize();
         DiscordActivity.Party.Size.MaxSize = Variables.PartyMaxSize();
+
+        if (Variables.PartyMaxSize() == 0)
+        {
+          DiscordActivity.Party.Size.CurrentSize = 0;
+          DiscordActivity.Party.Size.MaxSize = 0;
+        }
       }
 
       if (ConfigManager.DisplayLivingPlayers.Value)
