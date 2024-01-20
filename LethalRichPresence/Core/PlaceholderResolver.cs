@@ -41,7 +41,7 @@ public static class PlaceholderResolver
       bool toLower = false;
       string placeholder = match.Value.Replace("%", "");
 
-      // if there's & in front of the placeholder, make it lowercase and remove spaces
+      // if there's & in front of the placeholder, make it lowercase and remove characters not accepted by Discord's Rich Presence Assets
       if (placeholder.StartsWith("&"))
       {
         toLower = true;
@@ -53,7 +53,9 @@ public static class PlaceholderResolver
       {
         output = output.Replace(match.Value, placeholders[placeholder]);
 
-        if (toLower) output = output.ToLower().Replace(" ", "");
+        Regex unwantedCharactersRegex = new Regex(@"\ |\(|\)");
+
+        if (toLower) output = unwantedCharactersRegex.Replace(output.ToLower(), "");
       }
     }
 
