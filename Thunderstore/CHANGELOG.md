@@ -75,3 +75,25 @@
 # 0.5.3
 
 - Linux Rich Presence is finally (and hopefully) fixed (thank you: [Readek](https://github.com/Readek) and [Naku](https://nnaku.com/))
+
+# 0.5.4
+
+- fixed issue with game setting `null` party ID after starting in vanilla (thanks, [DHStyle541](https://github.com/DHStyle541))
+
+# 0.5.5
+
+- fixed issue with discord party ID not accepting 0 as an argument (thanks, [DHStyle541](https://github.com/DHStyle541))
+
+# 0.5.6
+
+- fixed issues with Rich Presence when playing on LAN
+
+# 0.5.7
+
+- changed the lowercase placeholder resolver to match discord's asset regex
+
+# 0.5.8
+
+- removed unused code
+- small image will be cleared on firing animation
+- dustclouds and modded weathers should work now
