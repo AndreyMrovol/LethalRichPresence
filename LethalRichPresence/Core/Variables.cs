@@ -148,7 +148,13 @@ public class Variables
 
   public static string CurrentWeather()
   {
-    return Planets.weathers[TimeOfDay.Instance.currentLevelWeather.ToString()];
+    var currentWeather = StartOfRound.Instance.currentLevel.currentWeather.ToString();
+
+    if(currentWeather == LevelWeatherType.None.ToString()){
+      return "Clear weather";
+    }
+
+    return currentWeather;
   }
 
 }
