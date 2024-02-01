@@ -13,7 +13,6 @@ public class Lifecycle : MonoBehaviour
   private Activity DiscordActivity;
 
   private bool inGame = false;
-  public static string currentPlanet;
 
   public float period = 0.0f;
   public float desiredPeriod = 1.0f;
@@ -34,7 +33,6 @@ public class Lifecycle : MonoBehaviour
     DiscordActivity.Timestamps.Start = ((DateTimeOffset)DateTime.Now).ToUnixTimeSeconds();
 
     SceneManager.sceneLoaded += OnSceneLoaded;
-    SceneManager.sceneUnloaded += OnSceneUnloaded;
 
     ActivityUpdate();
 
@@ -62,15 +60,6 @@ public class Lifecycle : MonoBehaviour
       }
       inGame = true;
     }
-    if (Planets.planets.ContainsKey(currentScene))
-      currentPlanet = currentScene;
-  }
-
-
-  private void OnSceneUnloaded(Scene scene)
-  {
-    if (currentPlanet == scene.name)
-      currentPlanet = null;
   }
 
 
