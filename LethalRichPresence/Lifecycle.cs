@@ -155,6 +155,8 @@ public class Lifecycle : MonoBehaviour
         DiscordActivity.Details = "Getting fired";
         DiscordActivity.State = $"Did not meet {Variables.QuotaNoCountifier()} quota ({Variables.Quota()})";
 
+        DiscordActivity.Assets.SmallImage = null;
+
         DiscordActivity.Party.Size.CurrentSize = 0;
         DiscordActivity.Party.Size.MaxSize = 0;
       }
