@@ -13,16 +13,20 @@ namespace LethalRichPresence
 {
     internal class LobbyCompatibilityCompatibility
     {
-
         public static void Init()
         {
-           Plugin.logger.LogWarning("LobbyCompatibility detected, registering plugin with LobbyCompatibility.");
+            Plugin.logger.LogWarning(
+                "LobbyCompatibility detected, registering plugin with LobbyCompatibility."
+            );
 
             Version pluginVersion = Version.Parse(LethalRichPresence.PluginInfo.PLUGIN_VERSION);
 
             LobbyCompatibility.Features.PluginHelper.RegisterPlugin(
-                "LethalRichPresence", pluginVersion,  LobbyCompatibility.Enums.CompatibilityLevel.ClientOptional, LobbyCompatibility.Enums.VersionStrictness.None);
+                "LethalRichPresence",
+                pluginVersion,
+                LobbyCompatibility.Enums.CompatibilityLevel.ClientOptional,
+                LobbyCompatibility.Enums.VersionStrictness.None
+            );
         }
-        
     }
 }
