@@ -68,6 +68,6 @@ public class ConfigManager
     FiredSequenceLargeImage = config.Bind("Presence.FiredSequence", "LargeImage", "fired", "The large image key for the rich presence.");
 
 
-    Debug = config.Bind("Debug", "Debugging", true, "Enable debug logging.");
+    Debug = config.Bind("Debug", "Debug logs", false, "Enable debug logging: resolving placeholders etc.");
   }
 }
