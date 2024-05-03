@@ -13,8 +13,6 @@ namespace LethalRichPresence
         private void Awake()
         {
             logger = Logger;
-            // Plugin startup logic
-            logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
             ConfigManager.Init(Config);
 
@@ -26,6 +24,10 @@ namespace LethalRichPresence
             discordGameObject.AddComponent<Lifecycle>();
             DontDestroyOnLoad(discordGameObject);
             discordGameObject.hideFlags = HideFlags.HideAndDontSave;
+
+            
+            // Plugin startup logic
+            logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
         }
     }
 }
