@@ -1,4 +1,5 @@
 ﻿using BepInEx;
+using BepInEx.Bootstrap;
 using BepInEx.Logging;
 using UnityEngine;
 
@@ -16,6 +17,10 @@ namespace LethalRichPresence
             logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 
             ConfigManager.Init(Config);
+
+            if(Chainloader.PluginInfos.ContainsKey("BMX.LobbyCompatibility")){
+                LobbyCompatibilityCompatibility.Init();
+            }
 
             GameObject discordGameObject = new GameObject();
             discordGameObject.AddComponent<Lifecycle>();
