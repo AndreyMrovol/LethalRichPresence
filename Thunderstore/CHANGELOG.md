@@ -1,52 +1,53 @@
-# 0.1.1
+# 0.5.9
 
-- fixed a bug where the mod would stop working after starting ship from a planet (thanks, [DHStyle541](https://github.com/DHStyle541))
+- added LobbyCompatibility compatibility (thanks, zetaarcade)
+- changed config entry for debug logs & made it disabled by default
+- changed some code thingies for the future releases
 
-# 0.2.0
+### Important information for all people who are using their own Discord App Ids
 
-- party id is set by default
-- added config option
-- added placeholder for detecting online/lan mode
-- added method for detecting if the player is the host
-- fixed party size/max size being set to null and disabling the mod
-- small optimization in resolving placeholders
-- fixed the option to join lobbies through Discord
+In future version (mid-May) all planet names will be changed to the numberless versions without decorations, so for example:
 
-# 0.2.1
+- `102-wateridge` will be `wateridge`
+- `86-ether---downtown` will be `etherdowntown`
+- `8-titan` will be `titan`
 
-- added main menu image (thanks, [SheepCommander](https://github.com/SheepCommander))
+All named files in my repo will be updated accordingly to reflect the change.
 
-# 0.2.2
+# 0.5.8
 
-- fixed debug messages being logged always
-- optimization: all placeholder values are pulled once per update
-- party size is updated only in orbit
-- added new placeholders: %onlineorlan%, %hosting%, %partyprivacy%
+- removed unused code
+- small image will be cleared on firing animation
+- dustclouds and modded weathers should work now
 
-# 0.3.0
+# 0.5.7
 
-### Please re-generate your config file!
+- changed the lowercase placeholder resolver to match discord's asset regex
 
-- added option to allow for join option to work only in public lobbies (thanks, [1A3Dev](https://github.com/1A3Dev))
+# 0.5.6
 
-# 0.3.1
+- fixed issues with Rich Presence when playing on LAN
 
-- changed lobby size detection to support MoreCompany/BiggerLobby (thanks, [FLozyXD](https://github.com/FLozyXD))
+# 0.5.5
 
-# 0.4.0
+- fixed issue with discord party ID not accepting 0 as an argument (thanks, [DHStyle541](https://github.com/DHStyle541))
 
-### Please re-generate your config file!
+# 0.5.4
 
-- **hopefully** fixed the issue where max party size would be set to 0 (thanks, [FLozyXD](https://github.com/FLozyXD), [Clark919](https://github.com/Clark919))
-- added placeholder for modded moons using `InitSceneLaunchOptions`
-- added support for **[LobbyInviteOnly](https://thunderstore.io/c/lethal-company/p/Dev1A3/LobbyInviteOnly/)** mod (thanks for [your PR](https://github.com/AndreyMrovol/LethalRichPresence/pull/3), [1A3Dev](https://github.com/1A3Dev))
-- added support for MoreCompany/AdvancedCompany bigger lobbies
-- fixed an issue with `IsPartyPublic` erroring on LAN (thanks for [your PR](https://github.com/AndreyMrovol/LethalRichPresence/pull/7), [1A3Dev](https://github.com/1A3Dev))
-- fixed an issue when the _Join_ button would be always active
+- fixed issue with game setting `null` party ID after starting in vanilla (thanks, [DHStyle541](https://github.com/DHStyle541))
 
-# 0.4.1
+# 0.5.3
 
-- update PartyMaxSize only when joining new lobby (thanks, [Clark919](https://github.com/Clark919))
+- Linux Rich Presence is finally (and hopefully) fixed (thank you: [Readek](https://github.com/Readek) and [Naku](https://nnaku.com/))
+
+# 0.5.2
+
+- Discord Activity Joining is working as intended (thanks, Qik'in!)
+
+# 0.5.1
+
+- fixed issue with Discord not reconnecting after Discord restart/shutdown (thanks, [northerncarrots](https://github.com/northerncarrots))
+- fixed issue with logs being spammed with Discord errors (thanks, [northerncarrots](https://github.com/northerncarrots))
 
 # 0.5.0
 
@@ -63,37 +64,52 @@
 - all Discord assets are now part of repository under CC-BY 4.0
 - **added support for modded moons**
 
-# 0.5.1
+# 0.4.1
 
-- fixed issue with Discord not reconnecting after Discord restart/shutdown (thanks, [northerncarrots](https://github.com/northerncarrots))
-- fixed issue with logs being spammed with Discord errors (thanks, [northerncarrots](https://github.com/northerncarrots))
+- update PartyMaxSize only when joining new lobby (thanks, [Clark919](https://github.com/Clark919))
 
-# 0.5.2
+# 0.4.0
 
-- Discord Activity Joining is working as intended (thanks, Qik'in!)
+### Please re-generate your config file!
 
-# 0.5.3
+- **hopefully** fixed the issue where max party size would be set to 0 (thanks, [FLozyXD](https://github.com/FLozyXD), [Clark919](https://github.com/Clark919))
+- added placeholder for modded moons using `InitSceneLaunchOptions`
+- added support for **[LobbyInviteOnly](https://thunderstore.io/c/lethal-company/p/Dev1A3/LobbyInviteOnly/)** mod (thanks for [your PR](https://github.com/AndreyMrovol/LethalRichPresence/pull/3), [1A3Dev](https://github.com/1A3Dev))
+- added support for MoreCompany/AdvancedCompany bigger lobbies
+- fixed an issue with `IsPartyPublic` erroring on LAN (thanks for [your PR](https://github.com/AndreyMrovol/LethalRichPresence/pull/7), [1A3Dev](https://github.com/1A3Dev))
+- fixed an issue when the _Join_ button would be always active
 
-- Linux Rich Presence is finally (and hopefully) fixed (thank you: [Readek](https://github.com/Readek) and [Naku](https://nnaku.com/))
+# 0.3.1
 
-# 0.5.4
+- changed lobby size detection to support MoreCompany/BiggerLobby (thanks, [FLozyXD](https://github.com/FLozyXD))
 
-- fixed issue with game setting `null` party ID after starting in vanilla (thanks, [DHStyle541](https://github.com/DHStyle541))
+# 0.3.0
 
-# 0.5.5
+### Please re-generate your config file!
 
-- fixed issue with discord party ID not accepting 0 as an argument (thanks, [DHStyle541](https://github.com/DHStyle541))
+- added option to allow for join option to work only in public lobbies (thanks, [1A3Dev](https://github.com/1A3Dev))
 
-# 0.5.6
+# 0.2.2
 
-- fixed issues with Rich Presence when playing on LAN
+- fixed debug messages being logged always
+- optimization: all placeholder values are pulled once per update
+- party size is updated only in orbit
+- added new placeholders: %onlineorlan%, %hosting%, %partyprivacy%
 
-# 0.5.7
+# 0.2.1
 
-- changed the lowercase placeholder resolver to match discord's asset regex
+- added main menu image (thanks, [SheepCommander](https://github.com/SheepCommander))
 
-# 0.5.8
+# 0.2.0
 
-- removed unused code
-- small image will be cleared on firing animation
-- dustclouds and modded weathers should work now
+- party id is set by default
+- added config option
+- added placeholder for detecting online/lan mode
+- added method for detecting if the player is the host
+- fixed party size/max size being set to null and disabling the mod
+- small optimization in resolving placeholders
+- fixed the option to join lobbies through Discord
+
+# 0.1.1
+
+- fixed a bug where the mod would stop working after starting ship from a planet (thanks, [DHStyle541](https://github.com/DHStyle541))
