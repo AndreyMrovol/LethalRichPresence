@@ -24,7 +24,7 @@ namespace LethalRichPresence
             LobbyCompatibility.Features.PluginHelper.RegisterPlugin(
                 "LethalRichPresence",
                 pluginVersion,
-                LobbyCompatibility.Enums.CompatibilityLevel.ClientOptional,
+                LobbyCompatibility.Enums.CompatibilityLevel.ClientOnly,
                 LobbyCompatibility.Enums.VersionStrictness.None
             );
         }
