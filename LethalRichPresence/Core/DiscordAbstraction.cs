@@ -11,7 +11,13 @@ namespace LethalRichPresence
 
         public static void Initialize()
         {
+            try{
             CreateDiscord();
+
+            }catch{
+
+                Plugin.logger.LogWarning("Cannot initialize Discord");
+            }
         }
 
         private static void CreateDiscord()
