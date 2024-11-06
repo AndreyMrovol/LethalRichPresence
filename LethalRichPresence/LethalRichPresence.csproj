@@ -1,22 +1,138 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>net46</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <AssemblyName>LethalRichPresence</AssemblyName>
         <Description>Discord Rich Presence support in the game.</Description>
         <Version>0.2.0</Version>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
         <LangVersion>latest</LangVersion>
+
+        <PackageId>LethalRichPresence</PackageId>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <IsPackable>true</IsPackable>
+
+        <RootNamespace>LethalRichPresence</RootNamespace>
+        <PackageIcon>icon.png</PackageIcon>
+        <PackageTags>lethal;company;bepinex;harmony;debug</PackageTags>
+
+        <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
+        <PackageProjectUrl>https://github.com/AndreyMrovol/LethalWeatherRegistry/</PackageProjectUrl>
+        <RepositoryUrl>https://github.com/AndreyMrovol/LethalWeatherRegistry/</RepositoryUrl>
+        <RepositoryType>git</RepositoryType>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
-        <PackageReference Include="BepInEx.Core" Version="5.*" />
-        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
-        <PackageReference Include="LethalAPI.GameLibs" Version="45.1.0" />
+        <None Include="$(ProjectDir)../README.md" Pack="true" PackagePath="/" />
+        <None Include="$(ProjectDir)../icon.png" Pack="true" PackagePath="/"/>
     </ItemGroup>
+
+    <PropertyGroup>
+        <GameDirectory>V:\Steam\steamapps\common\Lethal Company</GameDirectory>
+        <LibraryDirectory>../lib</LibraryDirectory>
+        <DebugLibraryDirectory>V:\LC-ModLibraries</DebugLibraryDirectory>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="BepInEx.AssemblyPublicizer.MSBuild" Version="0.4.1">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+
+        <PackageReference Include="BepInEx.Core" Version="5.4.21" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="TeamBMX.LobbyCompatibility" Version="1.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="LethalCompany.GameLibs.Steam" Version="*-*" Publicize="true">
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+
+        <PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all"/>
+        <PackageReference Include="BepInEx.PluginInfoProps" Version="1.*"/>
+        <PackageReference Include="Lib.Harmony" Version="2.3.3" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+
+        <PackageReference Include="Evaisa.LethalLib" Version="0.16.0" />
+        <!-- <PackageReference Include="IAmBatby.LethalLevelLoader" Version="*-*" /> -->
+
+        <!-- <PackageReference Include="mrov.MrovLib" Version="*-*" >
+            <PrivateAssets>all</PrivateAssets>
+        </PackageReference> -->
+
+        <PackageReference Include="MinVer" Version="4.*" PrivateAssets="all" Private="false"/>
+
+        <Reference Include="MMHOOK_Assembly-CSharp">
+            <HintPath>$(LibraryDirectory)/MMHOOK_Assembly-CSharp.dll</HintPath>
+        </Reference>
+
+        <Reference Include="MrovLib">
+            <HintPath>$(DebugLibraryDirectory)/MrovLib.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+    <Target Name="NetcodePatch" AfterTargets="PostBuildEvent">
+        <Exec Command="netcode-patch -nv 1.5.2 &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies->'&quot;%(Identity)&quot;', ' ')"/>
+    </Target>
+
+    <PropertyGroup>
+        <MinVerDefaultPreReleaseIdentifiers>dev</MinVerDefaultPreReleaseIdentifiers>
+        <MinVerTagPrefix>v</MinVerTagPrefix>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>embedded</DebugType>
+        <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+    </PropertyGroup>
+
+    <!-- MinVer Set Mod Version from Git -->
+    <Target Name="SetPluginVersion" BeforeTargets="AddGeneratedFile" DependsOnTargets="MinVer">
+        <PropertyGroup>
+            <PlainVersion>$(MinVerMajor).$(MinVerMinor).$(MinVerPatch)</PlainVersion>
+            <BepInExPluginVersion>$(PlainVersion)</BepInExPluginVersion>
+        </PropertyGroup>
+    </Target>
+
+    <Target Name="SaveVersionAndNameToFiles" DependsOnTargets="SetPluginVersion">
+        <WriteLinesToFile File="$(ProjectDir)dist/name.txt" Lines="$(AssemblyName)" Overwrite="true" />
+        <WriteLinesToFile File="$(ProjectDir)dist/version.txt" Lines="$(PlainVersion)" Overwrite="true" />
+    </Target>
+    
+    <Target Name="PackThunderstore" DependsOnTargets="NetcodePatch;SetPluginVersion;SaveVersionAndNameToFiles" AfterTargets="PostBuildEvent" Condition="$(Configuration) == 'Release'">
+        
+        <MakeDir Directories="$(ProjectDir)../assets/bundles" Condition="!Exists('$(ProjectDir)../assets/bundles')" />
+        
+        <Exec Command="dotnet tcli build --config-path $(ProjectDir)../assets/thunderstore.toml --package-version $(PlainVersion)" />
+        <ItemGroup>
+            <FilesToRename Include="$(ProjectDir)dist/*-$(PlainVersion).zip" />
+        </ItemGroup>
+        <Move SourceFiles="@(FilesToRename)" DestinationFiles="@(FilesToRename -&gt; Replace($(PlainVersion), $(MinVerVersion)))" />
+    </Target>
+    
+    <Target Name="PublishThunderstore" DependsOnTargets="SetPluginVersion;SaveVersionAndNameToFiles">
+        <Exec Command="dotnet tcli publish --config-path $(ProjectDir)../assets/thunderstore.toml --file $(ProjectDir)dist/*-$(MinVerVersion).zip" />
+    </Target>
+    
+    <Target Name="ZipCurseForge" AfterTargets="PackThunderstore" Condition="$(Configuration) == 'Release'">
+        <MakeDir Directories="$(ProjectDir)dist/output/" Condition="!Exists('$(ProjectDir)dist/output/')" />
+        <Copy SourceFiles="$(ProjectDir)bin/Release/netstandard2.1/$(AssemblyName).dll" DestinationFiles="$(ProjectDir)dist/output/$(AssemblyName).dll" />
+
+        <ZipDirectory
+            SourceDirectory="$(ProjectDir)dist/output/"
+            DestinationFile="$(ProjectDir)dist/curseforge.zip"
+            Overwrite="true" />
+    </Target>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
         <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2" PrivateAssets="all"/>
     </ItemGroup>
+
+    <Target Name="CopyToDebugProfile" AfterTargets="NetcodePatch" Condition="'$(Configuration)' == 'Debug'">
+        <Message Importance="high" Text="Copying To LibraryDir" />
+        <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugLibraryDirectory)" />
+    </Target>
 </Project>
