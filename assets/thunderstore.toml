@@ -7,7 +7,7 @@ repository = "https://thunderstore.io"
 [package]
 namespace = "mrov"
 name = "LethalRichPresence"
-description = "A mod for controlling the game's weather system."
+description = "Discord Rich Presence support in-game."
 websiteUrl = "https://github.com/AndreyMrovol/LethalRichPresence"
 containsNsfwContent = false
 
