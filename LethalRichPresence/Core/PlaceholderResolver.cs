@@ -5,63 +5,63 @@ namespace LethalRichPresence;
 
 public static class PlaceholderResolver
 {
-    public static Dictionary<string, string> PlaceholderDictionary()
-    {
-        Dictionary<string, string> placeholders =
-            new()
-            {
-                { "currentplanet", Variables.CurrentPlanet() },
-                { "currentweather", Variables.CurrentWeather() },
-                { "quota", Variables.Quota().ToString() },
-                { "quotafullfilled", Variables.QuotaFulfilled().ToString() },
-                { "quotacountifier", Variables.QuotaNoCountifier() },
-                { "collected", Variables.LootValue().ToString() },
-                { "timeleft", Variables.TimeRemaining().ToString() },
-                { "onlineorlan", Variables.IsOnlineOrLAN().ToString() },
-                { "hosting", Variables.IsHostingOrMember().ToString() },
-                { "partyprivacy", Variables.PartyPrivacy().ToString() },
-            };
-        return placeholders;
-    }
+	public static Dictionary<string, string> PlaceholderDictionary()
+	{
+		Dictionary<string, string> placeholders =
+			new()
+			{
+				{ "currentplanet", Variables.CurrentPlanet() },
+				{ "currentweather", Variables.CurrentWeather() },
+				{ "quota", Variables.Quota().ToString() },
+				{ "quotafullfilled", Variables.QuotaFulfilled().ToString() },
+				{ "quotacountifier", Variables.QuotaNoCountifier() },
+				{ "collected", Variables.LootValue().ToString() },
+				{ "timeleft", Variables.TimeRemaining().ToString() },
+				{ "onlineorlan", Variables.IsOnlineOrLAN().ToString() },
+				{ "hosting", Variables.IsHostingOrMember().ToString() },
+				{ "partyprivacy", Variables.PartyPrivacy().ToString() },
+			};
+		return placeholders;
+	}
 
-    public static string ResolvePlaceholders(string input, Dictionary<string, string> placeholders)
-    {
-        string output = input;
+	public static string ResolvePlaceholders(string input, Dictionary<string, string> placeholders)
+	{
+		string output = input;
 
-        if (output == "")
-            return null;
+		if (output == "")
+			return null;
 
-        // detect %string% placeholders and create switch to replace them
-        Regex regex = new Regex(@"\%.+?\%");
-        MatchCollection matches = regex.Matches(output);
+		// detect %string% placeholders and create switch to replace them
+		Regex regex = new Regex(@"\%.+?\%");
+		MatchCollection matches = regex.Matches(output);
 
-        foreach (Match match in matches)
-        {
-            bool toLower = false;
-            string placeholder = match.Value.Replace("%", "");
+		foreach (Match match in matches)
+		{
+			bool toLower = false;
+			string placeholder = match.Value.Replace("%", "");
 
-            // if there's & in front of the placeholder, make it lowercase and remove characters not accepted by Discord's Rich Presence Assets
-            if (placeholder.StartsWith("&"))
-            {
-                toLower = true;
-                placeholder = placeholder.Replace("&", "");
-            }
+			// if there's & in front of the placeholder, make it lowercase and remove characters not accepted by Discord's Rich Presence Assets
+			if (placeholder.StartsWith("&"))
+			{
+				toLower = true;
+				placeholder = placeholder.Replace("&", "");
+			}
 
-            // actual resolving placeholders
-            if (placeholders.ContainsKey(placeholder))
-            {
-                output = output.Replace(match.Value, placeholders[placeholder]);
+			// actual resolving placeholders
+			if (placeholders.ContainsKey(placeholder))
+			{
+				output = output.Replace(match.Value, placeholders[placeholder]);
 
-                Regex unwantedCharactersRegex = new Regex(@"\ |\(|\)");
+				Regex unwantedCharactersRegex = new Regex(@"\ |\(|\)");
 
-                if (toLower)
-                    output = unwantedCharactersRegex.Replace(output.ToLower(), "");
-            }
-        }
+				if (toLower)
+					output = unwantedCharactersRegex.Replace(output.ToLower(), "");
+			}
+		}
 
-        if (ConfigManager.Debug.Value)
-            Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
+		if (ConfigManager.Debug.Value)
+			Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
 
-        return output;
-    }
+		return output;
+	}
 }

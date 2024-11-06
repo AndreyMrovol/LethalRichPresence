@@ -3,82 +3,80 @@ using Discord;
 
 namespace LethalRichPresence
 {
-    public class DiscordAbstraction
-    {
-        public static Discord.Discord discord;
-        public static ActivityManager activityManager;
-        public static Activity activity;
+	public class DiscordAbstraction
+	{
+		public static Discord.Discord discord;
+		public static ActivityManager activityManager;
+		public static Activity activity;
 
-        public static void Initialize()
-        {
-            try{
-            CreateDiscord();
+		public static void Initialize()
+		{
+			try
+			{
+				CreateDiscord();
+			}
+			catch
+			{
+				Plugin.logger.LogWarning("Cannot initialize Discord");
+			}
+		}
 
-            }catch{
+		private static void CreateDiscord()
+		{
+			discord = new Discord.Discord(ConfigManager.AppID.Value, (ulong)CreateFlags.NoRequireDiscord);
+			activityManager = discord.GetActivityManager();
 
-                Plugin.logger.LogWarning("Cannot initialize Discord");
-            }
-        }
+			if (activityManager == null)
+			{
+				return;
+			}
 
-        private static void CreateDiscord()
-        {
-            discord = new Discord.Discord(
-                ConfigManager.AppID.Value,
-                (ulong)CreateFlags.NoRequireDiscord
-            );
-            activityManager = discord.GetActivityManager();
+			// hacky workaround for linux users getting errors on initialization
+			try
+			{
+				activityManager.RegisterSteam(1966720);
+			}
+			catch (Exception e)
+			{
+				Plugin.logger.LogError($"Error registering steam: {e}");
+			}
 
-            if (activityManager == null)
-            {
-                return;
-            }
+			activity = new() { Instance = true };
 
-            // hacky workaround for linux users getting errors on initialization
-            try
-            {
-                activityManager.RegisterSteam(1966720);
-            }
-            catch (Exception e)
-            {
-                Plugin.logger.LogError($"Error registering steam: {e}");
-            }
+			activityManager.OnActivityJoin += secret =>
+			{
+				Plugin.logger.LogMessage($"Joining lobby with {secret}");
 
-            activity = new() { Instance = true };
+				// secret is Steam Lobby ID
+				Steamworks.SteamId lobbyID = ulong.Parse(secret.ToString());
+				Steamworks.Data.Lobby SteamLobby = new Steamworks.Data.Lobby(lobbyID);
 
-            activityManager.OnActivityJoin += secret =>
-            {
-                Plugin.logger.LogMessage($"Joining lobby with {secret}");
+				try
+				{
+					GameNetworkManager.Instance.JoinLobby(SteamLobby, lobbyID);
+				}
+				catch (System.Exception e)
+				{
+					Plugin.logger.LogError(e);
+				}
+			};
+		}
 
-                // secret is Steam Lobby ID
-                Steamworks.SteamId lobbyID = ulong.Parse(secret.ToString());
-                Steamworks.Data.Lobby SteamLobby = new Steamworks.Data.Lobby(lobbyID);
+		public static void RestartDiscord()
+		{
+			// discord.Dispose();
+			CreateDiscord();
+		}
 
-                try
-                {
-                    GameNetworkManager.Instance.JoinLobby(SteamLobby, lobbyID);
-                }
-                catch (System.Exception e)
-                {
-                    Plugin.logger.LogError(e);
-                }
-            };
-        }
+		// getters for activitymanager and activity
+		public static ActivityManager GetActivityManager()
+		{
+			return activityManager;
+		}
 
-        public static void RestartDiscord()
-        {
-            // discord.Dispose();
-            CreateDiscord();
-        }
-
-        // getters for activitymanager and activity
-        public static ActivityManager GetActivityManager()
-        {
-            return activityManager;
-        }
-
-        public static Activity GetActivity()
-        {
-            return activity;
-        }
-    }
+		public static Activity GetActivity()
+		{
+			return activity;
+		}
+	}
 }
