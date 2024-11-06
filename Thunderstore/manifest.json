@@ -1,7 +1,0 @@
-{
-	"name": "LethalRichPresence",
-	"version_number": "0.5.8",
-	"website_url": "https://github.com/AndreyMrovol/LethalRichPresence",
-	"description": "Discord Rich Presence support in-game.",
-	"dependencies": ["BepInEx-BepInExPack-5.4.2100"]
-}

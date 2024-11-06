@@ -5,6 +5,16 @@ Discord Rich Presence support for Lethal Company.
 
 #### This is a beta version, please report any bugs on project's [Github page](https://github.com/AndreyMrovol/LethalRichPresence)
 
+### Important information for all people who are using their own Discord App Ids
+
+In future version (mid-May) all planet names will be changed to the numberless versions, so for example:
+
+- 102-wateridge will be `wateridge`
+- 86-ether---downtown will be `ether---downtown`
+- 8-titan will be `titan`
+
+All named files in my repo will be updated accordingly to reflect the change.
+
 ## Installation
 
 Copy **`LethalRichPresence.dll`** to your BepInEx plugins folder.
