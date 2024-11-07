@@ -224,8 +224,8 @@ public class Lifecycle : MonoBehaviour
 		try
 		{
 			DiscordActivityManager.UpdateActivity(DiscordActivity, result => { });
-			if (ConfigManager.Debug.Value)
-				Plugin.logger.LogDebug("DiscordActivityUpdate");
+
+			Plugin.debugLogger.LogDebug("DiscordActivityUpdate");
 
 			if (desiredPeriod != 1.0f)
 				desiredPeriod = 1.0f;
