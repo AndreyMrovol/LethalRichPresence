@@ -33,6 +33,8 @@ namespace LethalRichPresence
 			DontDestroyOnLoad(discordGameObject);
 			discordGameObject.hideFlags = HideFlags.HideAndDontSave;
 
+			Placeholders.Init();
+
 			// Plugin startup logic
 			logger.LogInfo($"Plugin {PluginInfo.PLUGIN_GUID} is loaded!");
 		}

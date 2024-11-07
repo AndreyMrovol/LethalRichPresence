@@ -1,30 +1,14 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using LethalRichPresence.Definitions;
 
 namespace LethalRichPresence;
 
 public static class PlaceholderResolver
 {
-	public static Dictionary<string, string> PlaceholderDictionary()
-	{
-		Dictionary<string, string> placeholders =
-			new()
-			{
-				{ "currentplanet", Variables.CurrentPlanet() },
-				{ "currentweather", Variables.CurrentWeather() },
-				{ "quota", Variables.Quota().ToString() },
-				{ "quotafullfilled", Variables.QuotaFulfilled().ToString() },
-				{ "quotacountifier", Variables.QuotaNoCountifier() },
-				{ "collected", Variables.LootValue().ToString() },
-				{ "timeleft", Variables.TimeRemaining().ToString() },
-				{ "onlineorlan", Variables.IsOnlineOrLAN().ToString() },
-				{ "hosting", Variables.IsHostingOrMember().ToString() },
-				{ "partyprivacy", Variables.PartyPrivacy().ToString() },
-			};
-		return placeholders;
-	}
+	public static Dictionary<string, Placeholder> Placeholders = [];
 
-	public static string ResolvePlaceholders(string input, Dictionary<string, string> placeholders)
+	public static string ResolvePlaceholders(string input)
 	{
 		string output = input;
 
@@ -48,9 +32,9 @@ public static class PlaceholderResolver
 			}
 
 			// actual resolving placeholders
-			if (placeholders.ContainsKey(placeholder))
+			if (Placeholders.ContainsKey(placeholder))
 			{
-				output = output.Replace(match.Value, placeholders[placeholder]);
+				output = output.Replace(match.Value, Placeholders[placeholder].Value);
 
 				Regex unwantedCharactersRegex = new Regex(@"\ |\(|\)");
 
@@ -58,9 +42,6 @@ public static class PlaceholderResolver
 					output = unwantedCharactersRegex.Replace(output.ToLower(), "");
 			}
 		}
-
-		if (ConfigManager.Debug.Value)
-			Plugin.logger.LogDebug($"Resolved |{input}| to |{output}|");
 
 		return output;
 	}

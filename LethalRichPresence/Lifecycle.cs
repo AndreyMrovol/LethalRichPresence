@@ -121,58 +121,29 @@ public class Lifecycle : MonoBehaviour
 
 			if (ConfigManager.Debug.Value) { }
 
-			Dictionary<string, string> placeholderDictionary = PlaceholderResolver.PlaceholderDictionary();
-
 			if (Variables.IsShipInOrbit())
 			{
-				DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.OrbitLargeText.Value,
-					placeholderDictionary
-				);
-				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.OrbitLargeImage.Value,
-					placeholderDictionary
-				);
+				DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitLargeText.Value);
+				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitLargeImage.Value);
 
-				DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.OrbitSmallText.Value,
-					placeholderDictionary
-				);
-				DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.OrbitSmallImage.Value,
-					placeholderDictionary
-				);
+				DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitSmallText.Value);
+				DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.OrbitSmallImage.Value);
 			}
 			else
 			{
-				DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.PlanetLargeText.Value,
-					placeholderDictionary
-				);
-				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.PlanetLargeImage.Value,
-					placeholderDictionary
-				);
+				DiscordActivity.Assets.LargeText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetLargeText.Value);
+				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetLargeImage.Value);
 
-				DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.PlanetSmallText.Value,
-					placeholderDictionary
-				);
-				DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.PlanetSmallImage.Value,
-					placeholderDictionary
-				);
+				DiscordActivity.Assets.SmallText = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetSmallText.Value);
+				DiscordActivity.Assets.SmallImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.PlanetSmallImage.Value);
 			}
 
-			DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value, placeholderDictionary);
-			DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value, placeholderDictionary);
+			DiscordActivity.Details = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityDetails.Value);
+			DiscordActivity.State = PlaceholderResolver.ResolvePlaceholders(ConfigManager.ActivityState.Value);
 
 			if (Variables.IsFiringSequenceActive())
 			{
-				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(
-					ConfigManager.FiredSequenceLargeImage.Value,
-					placeholderDictionary
-				);
+				DiscordActivity.Assets.LargeImage = PlaceholderResolver.ResolvePlaceholders(ConfigManager.FiredSequenceLargeImage.Value);
 				DiscordActivity.Assets.LargeText = "Getting fired";
 
 				DiscordActivity.Details = "Getting fired";

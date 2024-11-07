@@ -12,23 +12,9 @@ public class Variables
 		return Value == null ? "" : Value.ToString();
 	}
 
-	/// <summary>
-	/// Calculate the value of all scrap in the ship.
-	///
-	/// <seealso href="https://github.com/tinyhoot/ShipLoot/blob/023cb32d1dbc36dfd407d276996a4a8ea4f4fc7b/ShipLoot/Patches/HudManagerPatcher.cs#L56">Original code from tinyhoot's ShipLoot mod</seealso>
-	/// </summary>
-	/// <returns>The total scrap value.</returns>
 	public static float LootValue()
 	{
-		GameObject ship = GameObject.Find("/Environment/HangarShip");
-		// Get all objects that can be picked up from inside the ship. Also remove items which technically have
-		// scrap value but don't actually add to your quota.
-		var loot = ship.GetComponentsInChildren<GrabbableObject>()
-			.ToList()
-			.Where(obj => obj.name != "ClipboardManual" && obj.name != "StickyNoteItem" && obj.name != "Key(Clone)" && obj.name != "Key")
-			.Where(obj => obj.scrapValue > 0)
-			.ToList();
-		return loot.Sum(scrap => scrap.scrapValue);
+		return MrovLib.SharedMethods.GetShipObjects().Sum(shipObject => shipObject.scrapValue);
 	}
 
 	public static bool AmIHost()
