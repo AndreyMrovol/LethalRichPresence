@@ -13,6 +13,7 @@ public class ConfigManager
 	}
 
 	public static ConfigEntry<long> AppID { get; private set; }
+	public static ConfigEntry<int> SecondsBetweenUpdates { get; private set; }
 
 	public static ConfigEntry<bool> AllowJoin { get; private set; }
 	public static ConfigEntry<bool> JoinOnlyInPublicLobby { get; private set; }
@@ -41,6 +42,7 @@ public class ConfigManager
 	private ConfigManager(ConfigFile config)
 	{
 		AppID = config.Bind("General", "AppID", 1184272051075305483, "The Discord App ID for this game.");
+		SecondsBetweenUpdates = config.Bind("General", "SecondsBetweenUpdates", 2, "The amount of seconds between rich presence updates.");
 
 		AllowJoin = config.Bind("Party", "AllowJoin", true, "Allow players to join your game from Discord.");
 		JoinOnlyInPublicLobby = config.Bind(

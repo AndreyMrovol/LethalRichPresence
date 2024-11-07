@@ -15,7 +15,7 @@ public class Lifecycle : MonoBehaviour
 	private bool inGame = false;
 
 	public float period = 0.0f;
-	public float desiredPeriod = 1.0f;
+	public float desiredPeriod = ConfigManager.SecondsBetweenUpdates.Value;
 
 	public static int partyMaxSize = 0;
 	public static string partyID = "";
