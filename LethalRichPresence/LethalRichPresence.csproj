@@ -59,19 +59,15 @@
         <PackageReference Include="Evaisa.LethalLib" Version="0.16.0" />
         <!-- <PackageReference Include="IAmBatby.LethalLevelLoader" Version="*-*" /> -->
 
-        <!-- <PackageReference Include="mrov.MrovLib" Version="*-*" >
+        <PackageReference Include="mrov.MrovLib" Version="*-*" >
             <PrivateAssets>all</PrivateAssets>
-        </PackageReference> -->
+        </PackageReference>
 
         <PackageReference Include="MinVer" Version="4.*" PrivateAssets="all" Private="false"/>
 
-        <Reference Include="MMHOOK_Assembly-CSharp">
-            <HintPath>$(LibraryDirectory)/MMHOOK_Assembly-CSharp.dll</HintPath>
-        </Reference>
-
-        <Reference Include="MrovLib">
+        <!-- <Reference Include="MrovLib">
             <HintPath>$(DebugLibraryDirectory)/MrovLib.dll</HintPath>
-        </Reference>
+        </Reference> -->
     </ItemGroup>
 
     <Target Name="NetcodePatch" AfterTargets="PostBuildEvent">
