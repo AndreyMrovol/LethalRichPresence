@@ -1,12 +1,14 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using LethalRichPresence.Definitions;
+using MrovLib;
 
 namespace LethalRichPresence;
 
 public static class PlaceholderResolver
 {
 	public static Dictionary<string, Placeholder> Placeholders = [];
+	public static ResolverCache<string> Cache = new();
 
 	public static string ResolvePlaceholders(string input)
 	{
@@ -34,12 +36,22 @@ public static class PlaceholderResolver
 			// actual resolving placeholders
 			if (Placeholders.ContainsKey(placeholder))
 			{
-				output = output.Replace(match.Value, Placeholders[placeholder].Value);
+				string placeholderValue = Placeholders[placeholder].Value;
+
+				output = output.Replace(match.Value, placeholderValue);
 
 				Regex unwantedCharactersRegex = new Regex(@"\ |\(|\)");
 
 				if (toLower)
+				{
 					output = unwantedCharactersRegex.Replace(output.ToLower(), "");
+				}
+
+				if (Cache.Get(placeholder) != placeholderValue)
+				{
+					Plugin.debugLogger.LogDebug($"Resolved |{match.Value}| into |{placeholderValue}|");
+					Cache.Add(placeholder, placeholderValue);
+				}
 			}
 		}
 
