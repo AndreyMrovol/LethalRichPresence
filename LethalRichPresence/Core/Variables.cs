@@ -96,23 +96,8 @@ public class Variables
 
 	public static string CurrentPlanet()
 	{
-		var currentPlanet = StartOfRound.Instance.currentLevel.PlanetName;
-
-		// If planet name starts with digit (e.g. "71 Gordion"), replace space with dash (e.g. "71-Gordion") (backwards compatibility with stupid-ass dictionary system)
-		var startsWithDigit = new Regex(@"^[0-9]{1}");
-		if (startsWithDigit.IsMatch(currentPlanet))
-		{
-			currentPlanet = currentPlanet.Replace(" ", "-");
-		}
-
-		// If planet name starts with letter (e.g. "E Gypt", "springfield"), make first letter uppercase (e.g. "E Gypt", "Springfield")
-		var startsWithLetter = new Regex(@"^[a-zA-Z]{1}");
-		if (startsWithLetter.IsMatch(currentPlanet))
-		{
-			currentPlanet = currentPlanet.First().ToString().ToUpper() + currentPlanet.Substring(1);
-		}
-
-		return currentPlanet;
+		Regex regex = new(@"^[0-9]+|[-_/\\\ ]");
+		return new string(regex.Replace(StartOfRound.Instance.currentLevel.PlanetName, ""));
 	}
 
 	public static string CurrentWeather()
