@@ -8,7 +8,6 @@ namespace LethalRichPresence
 		public CurrentPlanet()
 			: base("currentplanet")
 		{
-			// ValueReference = Variables.CurrentPlanet();
 		}
 
 		public override string ValueReference()
