@@ -6,12 +6,6 @@ namespace LethalRichPresence;
 
 public class Variables
 {
-	private static string NullToString(object Value)
-	{
-		// Value.ToString() allows for Value being DBNull, but will also convert int, double, etc.
-		return Value == null ? "" : Value.ToString();
-	}
-
 	public static float LootValue()
 	{
 		return MrovLib.SharedMethods.GetShipObjects().Sum(shipObject => shipObject.scrapValue);
@@ -27,11 +21,6 @@ public class Variables
 		return StartOfRound.Instance.inShipPhase;
 	}
 
-	public static string IsOnlineOrLAN()
-	{
-		return GameNetworkManager.Instance.disableSteam ? "on LAN" : "online";
-	}
-
 	public static bool IsPartyPublic()
 	{
 		return GameNetworkManager.Instance.lobbyHostSettings?.isLobbyPublic != null
@@ -42,11 +31,6 @@ public class Variables
 	public static bool IsPartyInviteOnly()
 	{
 		return GameNetworkManager.Instance.currentLobby?.GetData("inviteOnly") == "true";
-	}
-
-	public static string IsHostingOrMember()
-	{
-		return AmIHost() ? "hosting" : "member";
 	}
 
 	public static bool IsFiringSequenceActive()
@@ -77,11 +61,6 @@ public class Variables
 	public static string PartyLeaderID()
 	{
 		return GameNetworkManager.Instance.currentLobby?.Owner.Id.ToString() ?? "0";
-	}
-
-	public static string PartyPrivacy()
-	{
-		return IsPartyPublic() ? "public" : "private";
 	}
 
 	public static int Quota()
