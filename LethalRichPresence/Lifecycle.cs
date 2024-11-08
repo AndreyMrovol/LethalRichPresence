@@ -15,7 +15,7 @@ public class Lifecycle : MonoBehaviour
 	private bool inGame = false;
 
 	public float period = 0.0f;
-	public float desiredPeriod = ConfigManager.SecondsBetweenUpdates.Value;
+	public int desiredPeriod = ConfigManager.SecondsBetweenUpdates.Value;
 
 	public static int partyMaxSize = 0;
 	public static string partyID = "";
@@ -83,7 +83,7 @@ public class Lifecycle : MonoBehaviour
 					if (ConfigManager.Debug.Value)
 						Plugin.logger.LogError(ein);
 
-					desiredPeriod = 10.0f;
+					desiredPeriod = 10;
 
 					DiscordAbstraction.RestartDiscord();
 
@@ -100,7 +100,7 @@ public class Lifecycle : MonoBehaviour
 			{
 				Plugin.logger.LogError($"Update() error: {e.Message}");
 				period = 0;
-				desiredPeriod = 10.0f;
+				desiredPeriod = 10;
 			}
 		}
 		else
@@ -227,8 +227,10 @@ public class Lifecycle : MonoBehaviour
 
 			Plugin.debugLogger.LogDebug("DiscordActivityUpdate");
 
-			if (desiredPeriod != 1.0f)
-				desiredPeriod = 1.0f;
+			if (desiredPeriod != ConfigManager.SecondsBetweenUpdates.Value)
+			{
+				desiredPeriod = ConfigManager.SecondsBetweenUpdates.Value;
+			}
 		}
 		catch (Exception e)
 		{
