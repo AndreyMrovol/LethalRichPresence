@@ -102,13 +102,6 @@ public class Variables
 
 	public static string CurrentWeather()
 	{
-		var currentWeather = StartOfRound.Instance.currentLevel.currentWeather.ToString();
-
-		if (currentWeather == LevelWeatherType.None.ToString())
-		{
-			return "Clear weather";
-		}
-
-		return currentWeather;
+		return MrovLib.SharedMethods.GetLevelWeather(StartOfRound.Instance.currentLevel).ToString();
 	}
 }
