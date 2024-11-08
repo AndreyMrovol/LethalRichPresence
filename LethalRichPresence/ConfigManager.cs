@@ -38,6 +38,7 @@ public class ConfigManager
 	public static ConfigEntry<bool> ActivityPlayers { get; private set; }
 
 	public static ConfigEntry<bool> Debug { get; private set; }
+	public static ConfigEntry<bool> LogActivityUpdates { get; private set; }
 
 	private ConfigManager(ConfigFile config)
 	{
@@ -88,5 +89,11 @@ public class ConfigManager
 		FiredSequenceLargeImage = config.Bind("Presence.FiredSequence", "LargeImage", "fired", "The large image key for the rich presence.");
 
 		Debug = config.Bind("Debug", "Debug logs", false, "Enable debug logging: resolving placeholders etc.");
+		LogActivityUpdates = config.Bind(
+			"Debug",
+			"Log activity updates",
+			false,
+			"Log activity updates to the console. Requires debug logs to be enabled."
+		);
 	}
 }
