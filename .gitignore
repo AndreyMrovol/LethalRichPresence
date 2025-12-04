@@ -547,3 +547,10 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+
+# mrov's additions
+lib/*
+*.zip
+Thunderstore/*.dll
+*/dist/*
+package-lock.json

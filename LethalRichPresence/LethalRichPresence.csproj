@@ -20,6 +20,15 @@
         <PackageProjectUrl>https://github.com/AndreyMrovol/LethalWeatherRegistry/</PackageProjectUrl>
         <RepositoryUrl>https://github.com/AndreyMrovol/LethalWeatherRegistry/</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+
+        <RestoreAdditionalProjectSources>
+            https://api.nuget.org/v3/index.json;
+            https://nuget.bepinex.dev/v3/index.json;
+            https://nuget.samboy.dev/v3/index.json;
+            https://nuget.windows10ce.com/nuget/v3/index.json
+        </RestoreAdditionalProjectSources>
+
+        <BepInExPluginGuid>$(PackageId)</BepInExPluginGuid>
     </PropertyGroup>
 
     <ItemGroup>
@@ -59,19 +68,19 @@
         <PackageReference Include="Evaisa.LethalLib" Version="0.16.0" />
         <!-- <PackageReference Include="IAmBatby.LethalLevelLoader" Version="*-*" /> -->
 
-        <PackageReference Include="mrov.MrovLib" Version="*-*" >
+        <!-- <PackageReference Include="mrov.MrovLib" Version="*-*" >
             <PrivateAssets>all</PrivateAssets>
-        </PackageReference>
+        </PackageReference> -->
 
         <PackageReference Include="MinVer" Version="4.*" PrivateAssets="all" Private="false"/>
 
-        <!-- <Reference Include="MrovLib">
+        <Reference Include="MrovLib">
             <HintPath>$(DebugLibraryDirectory)/MrovLib.dll</HintPath>
-        </Reference> -->
+        </Reference>
     </ItemGroup>
 
     <Target Name="NetcodePatch" AfterTargets="PostBuildEvent">
-        <Exec Command="netcode-patch -nv 1.5.2 &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies->'&quot;%(Identity)&quot;', ' ')"/>
+        <!-- <Exec Command="netcode-patch -nv 1.5.2 &quot;$(TargetPath)&quot; @(ReferencePathWithRefAssemblies->'&quot;%(Identity)&quot;', ' ')"/> -->
     </Target>
 
     <PropertyGroup>
@@ -98,7 +107,7 @@
         <WriteLinesToFile File="$(ProjectDir)dist/version.txt" Lines="$(PlainVersion)" Overwrite="true" />
     </Target>
     
-    <Target Name="PackThunderstore" DependsOnTargets="NetcodePatch;SetPluginVersion;SaveVersionAndNameToFiles" AfterTargets="PostBuildEvent" Condition="$(Configuration) == 'Release'">
+    <Target Name="PackThunderstore" DependsOnTargets="NetcodePatch;SetPluginVersion" AfterTargets="PostBuildEvent" Condition="$(Configuration) == 'Release'">
         
         <MakeDir Directories="$(ProjectDir)../assets/bundles" Condition="!Exists('$(ProjectDir)../assets/bundles')" />
         
@@ -106,11 +115,11 @@
         <ItemGroup>
             <FilesToRename Include="$(ProjectDir)dist/*-$(PlainVersion).zip" />
         </ItemGroup>
-        <Move SourceFiles="@(FilesToRename)" DestinationFiles="@(FilesToRename -&gt; Replace($(PlainVersion), $(MinVerVersion)))" />
+        <Move SourceFiles="@(FilesToRename)" DestinationFiles="@(FilesToRename -&gt; Replace($(PlainVersion), $(PlainVersion)))" />
     </Target>
     
-    <Target Name="PublishThunderstore" DependsOnTargets="SetPluginVersion;SaveVersionAndNameToFiles">
-        <Exec Command="dotnet tcli publish --config-path $(ProjectDir)../assets/thunderstore.toml --file $(ProjectDir)dist/*-$(MinVerVersion).zip" />
+    <Target Name="PublishThunderstore" DependsOnTargets="SetPluginVersion">
+        <Exec Command="dotnet tcli publish --config-path $(ProjectDir)../assets/thunderstore.toml --file $(ProjectDir)dist/*-$(PlainVersion).zip" />
     </Target>
 
     <ItemGroup Condition="'$(TargetFramework.TrimEnd(`0123456789`))' == 'net'">
@@ -120,5 +129,7 @@
     <Target Name="CopyToDebugProfile" AfterTargets="NetcodePatch" Condition="'$(Configuration)' == 'Debug'">
         <Message Importance="high" Text="Copying To LibraryDir" />
         <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugLibraryDirectory)" />
+
+        <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(DebugProfile)" />
     </Target>
 </Project>
